@@ -892,7 +892,8 @@ class ProxmoxLxcAnsible(ProxmoxAnsible):
 
             # Only accept parameters that are compatible with the clone endpoint.
             valid_clone_parameters = ['hostname', 'pool', 'description']
-            if self.module.params['storage'] != "" and clone_is_template:
+            if self.module.params['storage'] != self.module.argument_spec['storage'].get(
+                    'default') and clone_is_template:
                 # Cloning a template, so create a full copy instead of a linked copy
                 create_full_copy = True
             elif self.module.params['storage'] is None and not clone_is_template:
